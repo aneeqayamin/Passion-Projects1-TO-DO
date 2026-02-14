@@ -17,7 +17,10 @@ const SUPABASE_URL = 'https://aziybncsffpdpwrjlcgz.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF6aXlibmNzZmZwZHB3cmpsY2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5ODg1NDEsImV4cCI6MjA4NjU2NDU0MX0.axEIu32nxXIYWfkmdyVFpwYa5O4dGkTP9CT23F30rsU';
 const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const groq = new Groq({
+  apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
+  dangerouslyAllowBrowser: true // <--- DO YOU HAVE THIS LINE?
+});
 
 // THEME ENGINE (12 VARIATIONS)
 
@@ -523,20 +526,18 @@ export default function QuestEngineUltimate() {
       // Context for AI
       const taskList = todos.map(t => `${t.title} [${t.is_completed ? 'DONE' : 'TODO'}]`).join(', ');
       
-      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-        method: "POST",
-        headers: { "Authorization": `Bearer ${GROQ_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
-          messages: [
-            { role: "system", content: `You are the QuestEngine Assistant. Current Theme: ${activeMasterTheme}. User Tasks: ${taskList}. Be helpful, concise, and stay in character based on the theme (Professional=Friendly, Retro=Gaming Lingo, Flower=Gentle, Valentine=Loving).` },
-            { role: "user", content: userMsg.text }
-          ]
-        })
-      });
+      const res = await fetch("/api/chat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    activeMasterTheme: activeMasterTheme, // matches label in route.js
+    taskList: JSON.stringify(todos),      // matches label in route.js
+    userMsgText: userMsg.text             // matches label in route.js
+  })
+});
       
       const data = await res.json();
-      const aiMsg = { role: 'ai', text: data.choices[0].message.content };
+      const aiMsg = { role: 'ai', text: data.content || data.choices[0].message.content };
       setChatLog(prev => [...prev, aiMsg]);
     } catch (err) {
       setChatLog(prev => [...prev, { role: 'ai', text: "Connection severed. Please check API configuration." }]);
