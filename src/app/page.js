@@ -112,8 +112,8 @@ const SHOP_INVENTORY = {
     { id: 'valentine', price: 300, name: "Cupid's Quiver", variants: ['val_love', 'val_heartbreak', 'val_passion'] }
   ],
   bots: [
-    { id: 'bot_default', price: 0, icon: '/ivan.jpeg', name: 'Ivan' },
-    { id: 'bot_girl', price: 150, icon: '/till.jpeg', name: '' },
+    { id: 'bot_default', price: 0, icon: '/ivan.jpeg', name: 'Ibanny <3' },
+    { id: 'bot_girl', price: 150, icon: '/till.jpeg', name: 'Till' },
     { id: 'bot_dragon', price: 500, icon: '🐉', name: 'Zhongli' },
     { id: 'bot_alien', price: 200, icon: '👽', name: 'Fish' },
     { id: 'bot_cat', price: 1000, icon: '😼', name: 'Mr. Meowmeow' },
