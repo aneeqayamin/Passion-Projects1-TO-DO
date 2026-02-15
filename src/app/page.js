@@ -926,7 +926,7 @@ export default function QuestEngineUltimate() {
                       {isOwned ? (
                         <div className="space-y-2">
                          <p className={`text-xs opacity-60 mb-2 ${currentTheme.subtext}`}>SELECT VARIANT:</p>
-                          <div className="flex gap-2">
+                          <div className="flex flex-wrap gap-2">
                             {item.variants.map(vId => {
                               const variantName = vId.split('_')[1];
                               const isActive = activeSubTheme === variantName && isMasterActive;
