@@ -187,27 +187,9 @@ export default function QuestEngineUltimate() {
   const [inputFolderEmoji, setInputFolderEmoji] = useState('📁');
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [chatInput, setChatInput] = useState('');
-  const chatInputRef = useRef(null); 
+  const chatInputRef = useRef(null); // Helps with auto-focus if you want
   
-  const [chatLog, setChatLog] = useState([
-    { 
-    role: 'ai', 
-    text: "Systems initialized. Task Master is standing by for the presentation. Good luck, Anne!" 
-  },
-  { 
-    role: 'user', 
-    text: "Show me my current objectives." 
-  },
-  { 
-    role: 'ai', 
-    text: "You have 3 tasks pending in 'Main Quest'. Your current theme is set to 'Professional'." 
-  },
-  {
-    role: 'user', 
-    text: "Thanks!", 
-  }
-
-  ]);
+  const [chatLog, setChatLog] = useState([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isAiThinking, setIsAiThinking] = useState(false);
 
@@ -281,28 +263,12 @@ export default function QuestEngineUltimate() {
       }
       if (bData.data) setBlueprints(bData.data);
     } catch (e) {
-      // --- OFFLINE DEMO MODE ---
-      // This is what your teacher will see if the Wi-Fi is down
-      console.log("Database unreachable. Switching to local demo mode.");
-      
-      // 1. Set some fake folders
-      setFolders([{ id: 'demo-f', name: 'Main Quest', emoji: '⚔️' }]);
-      
-      // 2. Set some fake tasks so the screen isn't empty
-      setTodos([
-        { id: 101, title: "Present Quest Engine to Sir", is_completed: false, folder_id: 'demo-f' },
-        { id: 102, title: "Explain Master Theme Engine", is_completed: true, folder_id: 'demo-f' },
-        { id: 103, title: "Demonstrate AI Chat Scroll Fix", is_completed: true, folder_id: 'demo-f' }
-      ]);
-
-      // 3. Ensure they have coins to play with the shop
-      if (coins < 100) setCoins(999); 
-      
-      addAlert('Offline Mode', 'Running on local backup systems.', 'warning');
+      addAlert('Connection Error', 'Failed to sync with headquarters.', 'error');
     } finally {
       setIsLoading(false);
     }
   };
+
 
   useEffect(() => {
   if (isChatOpen) {
