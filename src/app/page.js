@@ -38,7 +38,7 @@ const THEME_ENGINE = {
       new: "Folders"
     }, 
     variants: {
-      dark: { id: 'prof_dark', name: 'Executive Dark', bg: 'bg-slate-900', panel: 'bg-black', text: 'text-white', subtext: 'text-white', border: 'border-slate-700', accent: 'bg-blue-600', accentText: 'text-white', progress: 'bg-white' },
+      dark: { id: 'prof_dark', name: 'Executive Dark', bg: 'bg-slate-900', panel: 'bg-black', text: 'text-[#ffffff]', subtext: 'text-[#ffffff]', border: 'border-slate-700', accent: 'bg-blue-600', accentText: 'text-white', progress: 'bg-white' },
       light: { id: 'prof_light', name: 'Studio Light', bg: 'bg-slate-75', panel: 'bg-white', text: 'text-slate-900', subtext: 'text-slate-900', border: 'border-slate-300', accent: 'bg-yellow-400', accentText: 'text-white', progress: 'bg-yellow-400' },
       gray: { id: 'prof_gray', name: 'Minimalist Gray', bg: 'bg-neutral-200', panel: 'bg-neutral-100', text: 'text-neutral-800', subtext: 'text-neutral-500', border: 'border-neutral-300', accent: 'bg-black', accentText: 'text-neutral-50', progress: 'bg-neutral-800' },
     }
